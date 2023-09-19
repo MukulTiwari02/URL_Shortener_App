@@ -1,31 +1,28 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import './navbar.css';
 
-const Navbar = ({logout}) => {
+const Navbar = ({logout, isLogin}) => {
+
+
   return (
-    <nav className="container --flex-between --bg-success">
-        <div className="logo">
+    <nav className="nav-container --flex-between">
+        <div className="logo --flex-center">
           <h1>URL Shortener</h1>
         </div>
         <ul className="home-links --flex-between">
-          <li>
-            <Link to="/register">Register</Link>
-          </li>
-          <li>
-           <button className="--btn --btn-primary">
-              <Link to="/login">Login</Link>
-            </button>
-          </li>          
-          <li>
-            <button className="--btn --btn-primary">
-              <Link to="/dashboard">Dashboard</Link> 
-            </button>
-          </li>
-          <li>
-            <button className="--btn --btn-primary --btn-danger" onClick={logout}>
-              <Link to="/login">Logout</Link>
-            </button>
-          </li>
+          {!isLogin && <li>
+            <Link className='register' to="/register">Register</Link>
+          </li>}
+          {!isLogin && <li>           
+              <Link to="/login"><button className="--btn button --btn-btn">Login</button></Link>            
+          </li>}          
+          {isLogin && <li>            
+              <Link to="/dashboard"><button className="--btn button --btn-btn">Dashboard</button></Link> 
+          </li> }
+          {isLogin && <li>            
+              <Link to="/login"><button className="--btn button --btn-logout" onClick={logout}>Logout</button></Link>
+          </li>}
         </ul>
       </nav>
   )

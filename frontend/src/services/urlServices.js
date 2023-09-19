@@ -7,6 +7,8 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL
 
 
 export const addNewUrl = async (longURL) => {
+    longURL = longURL.replace('https://', "");
+    longURL = longURL.replace('http://', "");
     try {
         // console.log(longURL)
         const response = await axios.post(`${BACKEND_URL}/api/url/addNewUrl`, {longURL}, {withCredentials : true})

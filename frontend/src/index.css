@@ -35,7 +35,7 @@ html {
 
 body {
   font-family: var(--font-family);
-  background: #eee;
+  background: rgba(43, 183, 230, 0.582);
 }
 
 section {

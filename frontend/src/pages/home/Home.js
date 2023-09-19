@@ -6,6 +6,9 @@ import axios from 'axios'
 import { logoutUser } from '../../services/authServices'
 import { useDispatch } from 'react-redux';
 import {SET_LOGIN, SET_NAME, SET_USER} from '../../redux/features/auth/authSlice'
+import Hero from '../../components/hero/Hero'
+import { useSelector } from 'react-redux';
+import {selectIsLoggedIn} from '../../redux/features/auth/authSlice'
 
 const Home = () => {
 
@@ -20,9 +23,12 @@ const Home = () => {
     // navigate('/login');
   }
 
+  const isLogin = useSelector(selectIsLoggedIn);
+
   return (
     <div className='home'>
-      <Navbar logout = {logout}/>
+      <Navbar isLogin={isLogin} logout = {logout}/>
+      <Hero isLogin={isLogin}/>
     </div>
   )
 }

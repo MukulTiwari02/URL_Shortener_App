@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from './../../components/navbar/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsLoggedIn, selectName } from '../../redux/features/auth/authSlice';
+import { SET_LOGIN, SET_NAME, SET_USER, selectIsLoggedIn, selectName } from '../../redux/features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { addNewUrl } from '../../services/urlServices';
+import './Shorten.css';
+import { logoutUser } from '../../services/authServices';
+import { copyUrl, copyQR, downloadQR, shareUrl } from './utility';
 
 
 const Shorten = () => {
@@ -30,6 +33,15 @@ const Shorten = () => {
       }
     }
   },[navigate, dispatch])
+  
+  const logout = async () => {
+    await logoutUser();
+    dispatch(SET_LOGIN(false));
+    dispatch(SET_NAME(""));
+    dispatch(SET_USER({name : "", email : "", phone : ""}));
+    // navigate('/login');
+  }
+
 
   const handleInputChange = (e) => {
     if(smallUrl) setSmallUrl("")
@@ -48,33 +60,37 @@ const Shorten = () => {
   }
 
   return (
-    <div className='container'>
-      <Navbar />
-      <div className="welcome --flex-center --dir-column">
-        <h2>Welcome, {name}</h2>
-        <h2>Start Shortening</h2>
-      </div>
-
-      <form onSubmit={generateSmallUrl}>
-        <img src="" alt="chainImg" />
-        <input type="text" value={longURL} onChange={handleInputChange} placeholder='Here Paste the long URL'/>
-        <button className='--btn --btn-success' type="submit">SHORTEN</button>
-      </form>
-
-      <div className="shortened-url">
-        <div className="url-text"><h4>SHORTENED URL HERE : <a target='_blank' href={smallUrl}>{`${smallUrl}`}</a></h4></div>
-        <div className="url-controls --flex-start">
-          <button className='--btn'>Copy</button>
-          <button className='--btn'>Share</button>
+    <div className='shorten-container'>
+      <Navbar isLogin={true} logout={logout}/>
+      <div className="shorten-hero">
+        <div className="welcome --flex-center --dir-column">
+          <h2>Welcome, {name}</h2>
+          <h2>Start Shortening</h2>
         </div>
-      </div>
 
-      <div className="qrcode-container">
-        <img src="" alt="qrcodehere" />
-        <div className="qr-controls  --flex-start">
-          <button className='--btn'>Copy</button>
-          <button className='--btn'>Share</button>
-        </div>
+        <form className='shorten-form' onSubmit={generateSmallUrl}>
+          <img src=""/>
+          <input type="text" value={longURL} onChange={handleInputChange} placeholder='Paste the long URL here'/>
+          <button className='--btn --btn-success' type="submit">SHORTEN</button>
+        </form>
+
+        {smallUrl && <div className="shortened-url">
+          <div className="url-text"><h4>Shortened Url <br/><a className='short-url' target='_blank' href={smallUrl}>{`${smallUrl}`}</a></h4></div>
+          <div className="url-controls --flex-start">
+            <button className='--btn copy-button' onClick={copyUrl}>Copy</button>
+            <button className='--btn share-button' onClick={shareUrl}>Share</button>
+          </div>
+        </div>}
+
+        {smallUrl && <div className="shortened-url">
+        <div className="url-text"><h4>QR Code</h4></div>
+          <img className="qr-image" download src={`https://api.qrserver.com/v1/create-qr-code/?data=${smallUrl}!&size=120x120`}
+           alt="qrcodehere" />
+          <div className="qr-controls  --flex-start">
+            <button className='--btn copy-button' onClick={copyQR}>Copy</button>
+            <a download href={`https://api.qrserver.com/v1/create-qr-code/?data=${smallUrl}!&size=120x120`}><button className='--btn download-button' onClick={downloadQR}>Download</button></a>
+          </div>
+        </div>}
       </div>
     </div>
   )
