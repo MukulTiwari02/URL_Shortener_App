@@ -15,6 +15,8 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
+    origin: ["https://url-shortener-app-two.vercel.app/"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
