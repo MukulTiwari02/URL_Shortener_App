@@ -9,16 +9,19 @@ const cors = require("cors");
 
 const app = express();
 
+const corsOptions = {
+  origin: 'https://url-shortener-app-two.vercel.app', // Your frontend URL
+  credentials: true, // Allow cookies/auth headers
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+};
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(
-  cors({
-    credentials: true,
-    origin: ["https://url-shortener-app-two.vercel.app/"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+app.use(cors(corsOptions));
+
+app.options('*', cors(corsOptions));
 
 app.use("/api/url", urlRoutes);
 app.use("/api/user", userRoutes);
