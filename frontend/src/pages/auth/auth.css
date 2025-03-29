@@ -1,0 +1,176 @@
+.full-container {
+    height: 100vh;
+    width: 100vw;
+    /* background-color: rgba(43, 183, 230, 0.582); */
+}
+
+.card
+{
+    margin-inline: 10px;
+    width: 400px;
+    padding : 30px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.836);
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.623);
+    animation: slideDown 1s ease-in-out;
+}
+
+
+
+@keyframes slideDown {
+    0% {
+        transform: translate(0,-100px);
+    }
+    100%{
+        transform: translate(0,0);
+    }
+}
+
+@keyframes noSlide {
+    0% {
+        display: block;
+        transform: translate(0,100px);
+    }
+    100%
+    {
+        display: none;
+        transform: translate(0,0);
+        opacity: 0;
+        height: 0px;
+        width: 0px;
+    }
+}
+
+.card-head
+{
+    width: 100%;
+    font-size: 1.5rem;
+}
+
+.card-head > h1{
+    font-size: 2.5rem;
+}
+
+.card-head > span{
+    margin-block: 10px;
+}
+
+.card-head > span > span{
+    margin-inline: 10px;
+    font-size: 1.4rem;
+}
+
+
+
+.social-btns
+{
+    margin-block: 5px;
+    padding: 5px;
+}
+
+.social-btns > p{
+    margin-bottom: 10px;
+    font-size:1.7rem;
+}
+
+.social-btn-container
+{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.social-btn-container > button{
+    width: 90px;
+    margin-inline: 20px;
+    border-radius: 5px;
+}
+
+.hrule
+{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.hrule > hr:nth-child(1){
+    width: 60%;
+    height: 3px;
+    background-color: black;
+    margin-right: 15px;
+    position: relative;
+    top: -5px;
+}
+
+.hrule > hr:nth-child(3){
+    width: 60%;
+    height: 3px;
+    background-color: rgb(223, 29, 29);
+    margin-left: 15px;
+    position: relative;
+    top: -5px;
+}
+
+.form-container
+{
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+input{
+    height: 45px;
+    background-color: none;
+    background: none;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    outline: none;
+    border: 2px solid rgba(0, 0, 0, 0.473);
+    font-size: medium;
+}
+
+.link
+{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    margin-top: -9px;
+    margin-inline: 5px;
+}
+
+.--btn{
+    height: 45px;
+    border-radius: 10px;
+    border: 0.5px solid rgba(216, 192, 192, 0.644);
+}
+
+form > .--btn
+{
+    background-color: rgba(19, 33, 161, 0.733);
+}
+
+.register
+{
+    width: 450px;
+}
+
+.register form > button
+{
+    margin-top: 10px;
+}
+
+
+.forgot > h1{
+    margin-bottom: 20px;
+}
+
